@@ -1,8 +1,7 @@
 Name,NumOrders,Status,Priority
-John,2,Pending,false
+John,2,Dispatched,false
 Liam,1,Started,false
 Simon,4,Dispatched,false
-Connar,2,Pending,true
+Connar,2,Dispatched,true
 Sam,2,Dispatched,true
-Steve,8,Started,true
-
+Steve,8,Dispatched,true

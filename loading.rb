@@ -54,8 +54,8 @@ def orderinf(menu_selection, customers_listed)
       customer = selected_customer
     end
     # puts "#{name} has #{order_num} orders"
-    puts "#{menu_selection} has #{customer[1]} orders."
   end
+  puts "#{menu_selection} has #{customer[1]} orders."
 end
 
 def confirmation
@@ -73,12 +73,19 @@ end
 
 def change_status(menu_selection, order_arr)
   # use name from menu_selection & find its postition in the order_arr
-  row = order_arr.detect{ |aa| aa.include?(menu_selection) }
+  row = order_arr.detect { |aa| aa.include?(menu_selection) }
   name_pos = [order_arr.index(row)].join.to_i
   # change 'status' value
-  order_arr [name_pos][2] = 'Started'
+  if order_arr [name_pos][2] == 'Pending'
+    order_arr [name_pos][2] = 'Started'
+  else
+    order_arr [name_pos][2] = 'Dispatched'
+  end
   # save table_array as new csv
+end
+
+def save_changes(order_arr)
   order_arr.unshift(['Name', 'NumOrders', 'Status', 'Priority'])
   array_to_write = order_arr.map(&:to_csv).join
-  File.write("test.csv", array_to_write)
+  File.write('orders.csv', array_to_write)
 end

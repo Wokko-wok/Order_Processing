@@ -3,18 +3,20 @@ require 'tty-prompt'
 require_relative './loading'
 
 prompt = TTY::Prompt.new
-# make csv into an array of hashes
-table = CSV.open('orders.csv', headers: true)
-table_array = []
-table.each do |line|
-  table_array << [line['Name'], line['NumOrders'], line['Status'], line['Priority']]
-end
-
-pending_orders_arr = get_pending_customers(table_array)
-started_orders_arr = get_started_customers(table_array)
-dispatched_orders_arr = get_dispatched_customers(table_array)
 menu = 'Home'
+
 loop do
+  # make csv into an array of hashes
+  table = CSV.open('orders.csv', headers: true)
+  table_array = []
+  table.each do |line|
+    table_array << [line['Name'], line['NumOrders'], line['Status'], line['Priority']]
+  end
+
+  pending_orders_arr = get_pending_customers(table_array)
+  started_orders_arr = get_started_customers(table_array)
+  dispatched_orders_arr = get_dispatched_customers(table_array)
+
   case menu
   when 'Home'
     menu = prompt.select(
@@ -35,6 +37,7 @@ loop do
       orderinf(menu, pending_orders_arr)
       if confirmation == 'Y'
         change_status(menu, table_array)
+        save_changes(table_array)
       end
       menu = 'Return'
     end
@@ -45,6 +48,10 @@ loop do
     )
     if menu != 'Return'
       orderinf(menu, started_orders_arr)
+      if confirmation == 'Y'
+        change_status(menu, table_array)
+        save_changes(table_array)
+      end
       menu = 'Return'
     end
   when 'View Dispatched Orders'
