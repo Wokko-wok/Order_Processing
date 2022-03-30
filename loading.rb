@@ -74,8 +74,11 @@ end
 def change_status(menu_selection, order_arr)
   # use name from menu_selection & find its postition in the order_arr
   row = order_arr.detect{ |aa| aa.include?(menu_selection) }
-  p [order_arr.index(row)]
-  
+  name_pos = [order_arr.index(row)].join.to_i
   # change 'status' value
+  order_arr [name_pos][2] = 'Started'
   # save table_array as new csv
+  order_arr.unshift(['Name', 'NumOrders', 'Status', 'Priority'])
+  array_to_write = order_arr.map(&:to_csv).join
+  File.write("test.csv", array_to_write)
 end

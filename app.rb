@@ -13,7 +13,6 @@ end
 pending_orders_arr = get_pending_customers(table_array)
 started_orders_arr = get_started_customers(table_array)
 dispatched_orders_arr = get_dispatched_customers(table_array)
-
 menu = 'Home'
 loop do
   case menu
@@ -36,16 +35,9 @@ loop do
       orderinf(menu, pending_orders_arr)
       if confirmation == 'Y'
         change_status(menu, table_array)
-        puts 'yes'
       end
       menu = 'Return'
     end
-
-
-
-
-
-
   when 'View Started Orders'
     create_customers = create_customers(started_orders_arr)
     menu = prompt.select(
