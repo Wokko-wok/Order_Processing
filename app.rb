@@ -30,21 +30,32 @@ loop do
   when 'View Pending Orders'
     create_customers = create_customers(pending_orders_arr)
     menu = prompt.select(
-      'Select a customer', create_customers, 'Return'
+      'Select a customer', create_customers, 'Return', cycle: true
     )
+    if menu != 'Return'
+      confirmattion(menu, pending_orders_arr)
+      menu = 'Return'
+    end
   when 'View Started Orders'
     create_customers = create_customers(started_orders_arr)
     menu = prompt.select(
       'Select a customer', create_customers, 'Return'
     )
+    if menu != 'Return'
+      confirmattion(menu, started_orders_arr)
+      menu = 'Return'
+    end
   when 'View Dispatched Orders'
     create_customers = create_customers(dispatched_orders_arr)
     menu = prompt.select(
       'Select a customer', create_customers, 'Return'
     )
-    puts dispatched_orders_arr[0][0].class
-    puts menu.class
-    function(menu, dispatched_orders_arr)
+    # puts dispatched_orders_arr[0][0]
+    # puts menu
+    if menu != 'Return'
+      confirmattion(menu, dispatched_orders_arr)
+      menu = 'Return'
+    end
   when 'Return'
     menu = 'Home'
 

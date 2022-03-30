@@ -32,10 +32,11 @@ def get_dispatched_customers(table_array)
 end
 
 def create_customers(customers_arr)
-  customers_with = [] 
+  customers_with = []
   customers_without = []
   customers_arr.each.map do |customer|
-    # check if customer has priority append that to the with array and if they are without then append to the without array
+    # check if customer has priority append that to the with array and
+    # if they are without then append to the without array
     if customer[3] == 'true'
       customers_with << customer[0]
     else
@@ -46,16 +47,15 @@ def create_customers(customers_arr)
   return customers
 end
 
-def function(menu_selection, dispatched_customers) # menu_selection [String]
+def confirmattion(menu_selection, customers_listed)
   customer = []
-  dispatched_customers.each do |selected_customer|
+  customers_listed.each do |selected_customer|
     if selected_customer[0] == menu_selection
       customer = selected_customer
     end
   end
-  puts "Sam has #{customer[1]} orders"
-  input = gets "Do you wish to coninue?"
+  # puts "#{name} has #{order_num} orders"
+  puts "#{menu_selection} has #{customer[1]} orders.\nDo you wish to continue? (Y/N)"
+  input = gets.chomp
   return input
-    # puts "sam has #{order_num} orders"
-    # puts "do you wish to continue?"
 end
