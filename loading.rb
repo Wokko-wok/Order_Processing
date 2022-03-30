@@ -53,7 +53,7 @@ def orderinf(menu_selection, customers_listed)
     if selected_customer[0] == menu_selection
       customer = selected_customer
     end
-     # puts "#{name} has #{order_num} orders"
+    # puts "#{name} has #{order_num} orders"
     puts "#{menu_selection} has #{customer[1]} orders."
   end
 end
@@ -71,3 +71,11 @@ def confirmation
   return input
 end
 
+def change_status(menu_selection, order_arr)
+  # use name from menu_selection & find its postition in the order_arr
+  row = order_arr.detect{ |aa| aa.include?(menu_selection) }
+  p [order_arr.index(row)]
+  
+  # change 'status' value
+  # save table_array as new csv
+end

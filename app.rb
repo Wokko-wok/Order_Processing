@@ -34,10 +34,13 @@ loop do
     )
     if menu != 'Return'
       orderinf(menu, pending_orders_arr)
+      if confirmation == 'Y'
+        change_status(menu, table_array)
+        puts 'yes'
+      end
       menu = 'Return'
     end
 
-    confirmation()
 
 
 
