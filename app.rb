@@ -44,7 +44,7 @@ loop do
   when 'View Started Orders'
     create_customers = create_customers(started_orders_arr)
     menu = prompt.select(
-      'Select a customer', create_customers, 'Return'
+      'Select a customer', create_customers, 'Return', cycle: true
     )
     if menu != 'Return'
       orderinf(menu, started_orders_arr)
@@ -57,7 +57,7 @@ loop do
   when 'View Dispatched Orders'
     create_customers = create_customers(dispatched_orders_arr)
     menu = prompt.select(
-      'Select a customer', create_customers, 'Return'
+      'Select a customer', create_customers, 'Return', cycle: true
     )
     if menu != 'Return'
       orderinf(menu, dispatched_orders_arr)
