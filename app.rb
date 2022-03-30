@@ -33,16 +33,23 @@ loop do
       'Select a customer', create_customers, 'Return', cycle: true
     )
     if menu != 'Return'
-      confirmattion(menu, pending_orders_arr)
+      orderinf(menu, pending_orders_arr)
       menu = 'Return'
     end
+
+    confirmation()
+
+
+
+
+
   when 'View Started Orders'
     create_customers = create_customers(started_orders_arr)
     menu = prompt.select(
       'Select a customer', create_customers, 'Return'
     )
     if menu != 'Return'
-      confirmattion(menu, started_orders_arr)
+      orderinf(menu, started_orders_arr)
       menu = 'Return'
     end
   when 'View Dispatched Orders'
@@ -50,10 +57,8 @@ loop do
     menu = prompt.select(
       'Select a customer', create_customers, 'Return'
     )
-    # puts dispatched_orders_arr[0][0]
-    # puts menu
     if menu != 'Return'
-      confirmattion(menu, dispatched_orders_arr)
+      orderinf(menu, dispatched_orders_arr)
       menu = 'Return'
     end
   when 'Return'

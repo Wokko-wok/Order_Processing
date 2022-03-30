@@ -47,15 +47,27 @@ def create_customers(customers_arr)
   return customers
 end
 
-def confirmattion(menu_selection, customers_listed)
+def orderinf(menu_selection, customers_listed)
   customer = []
   customers_listed.each do |selected_customer|
     if selected_customer[0] == menu_selection
       customer = selected_customer
     end
+     # puts "#{name} has #{order_num} orders"
+    puts "#{menu_selection} has #{customer[1]} orders."
   end
-  # puts "#{name} has #{order_num} orders"
-  puts "#{menu_selection} has #{customer[1]} orders.\nDo you wish to continue? (Y/N)"
-  input = gets.chomp
+end
+
+def confirmation
+  begin
+    puts 'Do you wish to continue? (Y/N)'
+    # gets in put form user (Y/N)
+    input = gets.chomp.upcase
+    raise(StandardError) unless %w[Y N].include?(input)
+  rescue StandardError => _e
+    puts 'Invalid input. Try again'
+    retry
+  end
   return input
 end
+
