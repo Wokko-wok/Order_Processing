@@ -1,34 +1,11 @@
-def get_pending_customers(table_array)
-  # iterate over table and append to a new array all of the customers with the completed attribute.
-  pending_customers = []
+def get_customers(table_array, status)
+  customer_arr = []
   table_array.each do |order|
-    if order[2] == 'Pending'
-      pending_customers << order
+    if order[2] == status
+      customer_arr << order
     end
   end
-  return pending_customers
-end
-
-def get_started_customers(table_array)
-  # iterate over table and append to a new array all of the customers with the completed attribute.
-  started_customers = []
-  table_array.each do |order|
-    if order[2] == 'Started'
-      started_customers << order
-    end
-  end
-  return started_customers
-end
-
-def get_dispatched_customers(table_array)
-  # iterate over table and append to a new array all of the customers with the completed attribute.
-  dispatched_customers = []
-  table_array.each do |order|
-    if order[2] == 'Dispatched'
-      dispatched_customers << order
-    end
-  end
-  return dispatched_customers
+  return customer_arr
 end
 
 def create_customers(customers_arr)
@@ -60,7 +37,7 @@ end
 
 def confirmation
   begin
-    puts 'Do you wish to continue? (Y/N)'
+    puts Rainbow('Do you wish to continue? (Y/N)').red
     # gets in put form user (Y/N)
     input = gets.chomp.upcase
     raise(StandardError) unless %w[Y N].include?(input)
@@ -81,11 +58,16 @@ def change_status(menu_selection, order_arr)
   else
     order_arr [name_pos][2] = 'Dispatched'
   end
-  # save table_array as new csv
 end
 
 def save_changes(order_arr)
+  # save table_array as new csv
   order_arr.unshift(['Name', 'NumOrders', 'Status', 'Priority'])
   array_to_write = order_arr.map(&:to_csv).join
   File.write('orders.csv', array_to_write)
+end
+
+def clear_screen
+  system('clear')
+  system('cls')
 end

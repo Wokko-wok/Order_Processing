@@ -1,8 +1,9 @@
 require 'csv'
 require 'tty-prompt'
+require 'rainbow'
 require_relative './loading'
 
-prompt = TTY::Prompt.new
+prompt = TTY::Prompt.new(active_color: :cyan)
 menu = 'Home'
 
 loop do
@@ -13,14 +14,15 @@ loop do
     table_array << [line['Name'], line['NumOrders'], line['Status'], line['Priority']]
   end
 
-  pending_orders_arr = get_pending_customers(table_array)
-  started_orders_arr = get_started_customers(table_array)
-  dispatched_orders_arr = get_dispatched_customers(table_array)
+  pending_orders_arr = get_customers(table_array, 'Pending')
+  started_orders_arr = get_customers(table_array, 'Started')
+  dispatched_orders_arr = get_customers(table_array, 'Dispatched')
 
   case menu
   when 'Home'
+    clear_screen
     menu = prompt.select(
-      'What would you like to do?',
+      Rainbow('What would you like to do?').green,
       [
         'View Pending Orders',
         'View Started Orders',
@@ -29,9 +31,10 @@ loop do
       ], cycle: true
     )
   when 'View Pending Orders'
+    clear_screen
     create_customers = create_customers(pending_orders_arr)
     menu = prompt.select(
-      'Select a customer', create_customers, 'Return', cycle: true
+      Rainbow('Select a customer: ').green, create_customers, 'Return', cycle: true
     )
     if menu != 'Return'
       orderinf(menu, pending_orders_arr)
@@ -42,9 +45,10 @@ loop do
       menu = 'Return'
     end
   when 'View Started Orders'
+    clear_screen
     create_customers = create_customers(started_orders_arr)
     menu = prompt.select(
-      'Select a customer', create_customers, 'Return', cycle: true
+      Rainbow('Select a customer: ').green, create_customers, 'Return', cycle: true
     )
     if menu != 'Return'
       orderinf(menu, started_orders_arr)
@@ -55,12 +59,15 @@ loop do
       menu = 'Return'
     end
   when 'View Dispatched Orders'
+    clear_screen
     create_customers = create_customers(dispatched_orders_arr)
     menu = prompt.select(
-      'Select a customer', create_customers, 'Return', cycle: true
+      Rainbow('Select a customer: ').green, create_customers, 'Return', cycle: true
     )
     if menu != 'Return'
       orderinf(menu, dispatched_orders_arr)
+      printf Rainbow("press any key to continue \n").darkgray
+      $stdin.getch
       menu = 'Return'
     end
   when 'Return'
